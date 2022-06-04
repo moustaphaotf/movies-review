@@ -16,6 +16,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-samsung": "react-scripts --openssl-legacy-provider start",
+    "build-samsung": "react-scripts --openssl-legacy-provider build",
+    
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

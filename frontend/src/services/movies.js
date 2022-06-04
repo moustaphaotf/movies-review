@@ -10,6 +10,7 @@ class MovieDataService{
     }
 
     find(query, by='title', page=0){
+        //console.log(query, by);
         return axios.get(`http://localhost:5000/api/v1/movies?${by}=${query}&page=${page}`);
     }
 

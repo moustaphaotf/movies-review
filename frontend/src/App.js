@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#">MoviesReview</Navbar.Brand>
+        <Navbar.Brand href='/'>MoviesReview</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav.Link href="/movies">Movies</Nav.Link>

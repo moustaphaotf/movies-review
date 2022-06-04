@@ -20,6 +20,30 @@ const MoviesList = props => {
 		retrieveRatings();
 	}, []);
 
+	const find = (query, by) => {
+		MovieDataService.find(query, by)
+			.then(response => {
+				console.log(response.data);
+				setMovies(response.data.movies);
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	}
+
+	const findByTitle = () => {
+		find(searchTitle, 'title');
+	}
+
+	const findByRating = () => {
+		if(searchRating === 'All Ratings'){
+			retrieveMovies();
+		}
+		else{
+			find(searchRating, 'rated');
+		}
+	}
+
 	const retrieveMovies = () => {
 		MovieDataService.getAll()
 			.then(response => {
@@ -53,7 +77,10 @@ const MoviesList = props => {
 	return(
 		<div className="App">
 			<Container>
-				<Form>
+				<Form  onSubmit = {  e => {
+						e.preventDefault();
+					}}
+				>
 					<Row>
 					<Col>
 							<Form.Group>
@@ -68,7 +95,7 @@ const MoviesList = props => {
 							<Button
 								variant="primary"
 								type="button"
-								//onClick={findByTitle}
+								onClick={findByTitle}
 							>
 								Search
 							</Button>
@@ -87,7 +114,7 @@ const MoviesList = props => {
 							<Button
 								variant="primary"
 								type="button"
-								//onClick={findByTitleRating}
+								onClick={findByRating}
 							>
 								Search
 							</Button>
@@ -95,13 +122,13 @@ const MoviesList = props => {
 					</Row>
 				</Form>
 
-				<Row>
+				<Row className="pt-3">
 					{
 						movies.map(movie => {
 							return (
-								<Col sm="6" md="4" lg="3" key={movie._id}>
-									<Card style={{width:'18rem'}}>
-										<Card.Img style={{width:'75%'}} src={movie.poster + "/100px180"}/>
+								<Col className="col-12 col-sm-6 col-md-4 col-lg-3 p-2" key={movie._id}>
+									<Card>
+										<Card.Img src={movie.poster + "/100px180"}/>
 										<Card.Body>
 											<Card.Title>{movie.title}</Card.Title>
 											<Card.Text>

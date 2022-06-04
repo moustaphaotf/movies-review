@@ -25,7 +25,6 @@ export default class MoviesDAO{
         let query;
 
         if(filters){
-            console.log(filters);
             if('title' in filters) query = {$text: {$search: filters['title']}}
             else if('rated' in filters) query = {"rated" : {$eq: filters['rated']}}
         }
@@ -35,6 +34,7 @@ export default class MoviesDAO{
         try{
             cursor = await movies
             .find(query)
+            .sort('title', 1)
             .limit(moviesPerPage)
             .skip(moviesPerPage*page);
                 
