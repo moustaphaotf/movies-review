@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import MovieDataService from '../services/movies.js';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import moment from 'moment';
 
 import Card from 'react-bootstrap/Card';
@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 
 
 const Movie = (props) => {
+	const navigate = useNavigate()
 	const params = useParams();
 
 	const [movie, setMovie] = useState({
@@ -69,8 +70,18 @@ const Movie = (props) => {
 												{
 														props.user && props.user.id == r.user_id &&
 														<div className="btn-group">
-															<Link className="btn btn-primary" to="/">Edit</Link>
-															<Button className="btn btn-danger" to="/" >Delete</Button>
+															<Button className="btn btn-primary" 
+																onClick={() => {
+																	navigate(
+																		"/movies/"+params.id+"/review", {
+																			state:{
+																				currentReview:r
+																			}
+																		}
+																	);
+																}}
+															>Edit</Button>
+															<Button className="btn btn-danger" >Delete</Button>
 														</div>
 												}
 											</div>

@@ -19,11 +19,11 @@ class MovieDataService{
     }
 
     updateReview(data){
-        axios.put('http://localhost:5000/api/v1/movies/review', data);
+        return axios.put('http://localhost:5000/api/v1/movies/review', data);
     }
 
     deleteReview(data){
-        axios.delete('http://localhost:5000/api/v1/movies/review', data);
+        return axios.delete('http://localhost:5000/api/v1/movies/review', data);
     }
 
     getRatings(){
