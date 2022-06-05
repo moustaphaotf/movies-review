@@ -5,7 +5,8 @@
   "main": "index.js",
   "type":"module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [
     "movies",
@@ -15,6 +16,9 @@
   ],
   "author": "Mamadou Moustapha Diallo",
   "license": "ISC",
+  "engines": {
+    "node": "16.15.0"
+  }
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
