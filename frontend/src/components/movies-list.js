@@ -128,7 +128,7 @@ const MoviesList = props => {
 							return (
 								<Col className="col-12 col-sm-6 col-md-4 col-lg-3 p-2" key={movie._id}>
 									<Card>
-										<Card.Img src={movie.poster + "/100px180"}/>
+										<Card.Img alt={movie.title} src={movie.poster + "/100px180"}/>
 										<Card.Body>
 											<Card.Title>{movie.title}</Card.Title>
 											<Card.Text>
