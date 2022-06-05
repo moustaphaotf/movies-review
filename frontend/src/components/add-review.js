@@ -29,7 +29,7 @@ const AddReview = props => {
 	}
 
 	const saveReview = () => {
-		var data = {
+		const data = {
 			review,
 			name:props.user.name,
 			user_id: props.user.id,

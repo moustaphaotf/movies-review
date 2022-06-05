@@ -33,11 +33,27 @@ const Movie = (props) => {
 				console.log(e);
 			})
 	};
-
+	
+	
 	useEffect(() => {
 		getMovie(params.id);
 	}, [params.id]);
+	
+	const deleteReview = (reviewId) => {
+		
+		MovieDataService.deleteReview(reviewId, props.user.id)
+			.then(response => {
+				console.log(response.data);
 
+				const newState = {...movie};
+				newState.reviews = newState.reviews.filter(r => r._id !== reviewId);
+				
+				setMovie(newState);
+
+			}).catch(e => {
+				console.log(e);
+		});
+	}
 
 	return(
 		<div className="App">
@@ -68,7 +84,7 @@ const Movie = (props) => {
 												<div><strong>{r.name}</strong> reviewed on <span>{moment(r.date).format("Do MMMM YYYY")}</span></div>
 												<div className="p-2" style={{textAlign:"justify"}}>{r.review}</div>
 												{
-														props.user && props.user.id == r.user_id &&
+														props.user && Number(props.user.id) === Number(r.user_id) &&
 														<div className="btn-group">
 															<Button className="btn btn-primary" 
 																onClick={() => {
@@ -81,7 +97,12 @@ const Movie = (props) => {
 																	);
 																}}
 															>Edit</Button>
-															<Button className="btn btn-danger" >Delete</Button>
+															<Button 
+																className="btn btn-danger"
+																onClick={e => {
+																	deleteReview(r._id);
+																}}
+															>Delete</Button>
 														</div>
 												}
 											</div>
