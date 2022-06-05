@@ -67,6 +67,7 @@ const Movie = (props) => {
 												<div><strong>{r.name}</strong> reviewed on <span>{moment(r.date).format("Do MMMM YYYY")}</span></div>
 												<div className="p-2" style={{textAlign:"justify"}}>{r.review}</div>
 												{
+														props.user && props.user.id == r.user_id &&
 														<div className="btn-group">
 															<Link className="btn btn-primary" to="/">Edit</Link>
 															<Button className="btn btn-danger" to="/" >Delete</Button>

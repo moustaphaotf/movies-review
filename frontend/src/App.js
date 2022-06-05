@@ -1,5 +1,5 @@
-import React from 'react';
-import {Routes, Route, NavLink} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Routes, Route, NavLink, useResolvedPath} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,15 +9,20 @@ import MoviesList from "./components/movies-list.js";
 import Movie from "./components/movie.js";
 import AddReview from "./components/add-review.js";
 
-function App() {
-  const [user, setUser] = React.useState(null);
+function App() { 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+  useEffect(() => {
+    setUser(user);
+  });
 
   async function login(user = null){// default user to null
     setUser(user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   async function logout(){
     setUser(null);
+    localStorage.removeItem('user');
   }
 
   return (
@@ -29,9 +34,15 @@ function App() {
           <Nav.Link href="/movies">Movies</Nav.Link>
           {
             user ? (
-              <Nav.Link onClick={logout} >Logout</Nav.Link>
+              <Nav.Link 
+                href="/logout" 
+                onClick={e => {
+                  e.preventDefault();
+                  logout();
+                }}
+              >Logout</Nav.Link>
             ) : (
-              <NavLink to={"/login"}>Login</NavLink>
+                <NavLink className="nav-link" to={"/login"}>Login</NavLink>
             )
           }
         </Navbar.Collapse>
