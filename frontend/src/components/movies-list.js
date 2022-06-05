@@ -14,11 +14,20 @@ const MoviesList = props => {
 	const [searchTitle, setSearchTitle] = useState('');
 	const [searchRating, setSearchRating] = useState('');
 	const [ratings, setRatings] = useState(['All Ratings']);
+	const [currentPage, setCurrentPage] = useState(0);
+	const [entriesPerPage, setEntriesPerPage] = useState(0);
     
 	useEffect(() => {
 		retrieveMovies();
 		retrieveRatings();
 	}, []);
+
+	useEffect(() => {
+		retrieveMovies(currentPage);
+	}, [currentPage])
+
+
+
 
 	const find = (query, by) => {
 		MovieDataService.find(query, by)
@@ -45,10 +54,12 @@ const MoviesList = props => {
 	}
 
 	const retrieveMovies = () => {
-		MovieDataService.getAll()
+		MovieDataService.getAll(currentPage)
 			.then(response => {
 				console.log(response.data);
 				setMovies(response.data.movies);
+				setCurrentPage(response.data.page);
+				setEntriesPerPage(response.data.entries_per_page)
 			})
 			.catch(e => {
 				console.log(e);
@@ -143,6 +154,21 @@ const MoviesList = props => {
 						})
 					}
 				</Row>
+				<br/>
+
+				Showing page:{currentPage+1}&nbsp;&nbsp;
+				<Button
+					variant="link"
+					onClick={() => {
+							window.scrollTo({
+								top: 0,
+								left: 0,
+								behavior: 'smooth'
+							});
+							setCurrentPage(currentPage+1)
+						}
+					}
+				>Get next {entriesPerPage}</Button>
 			</Container>
 		</div>
 	
